@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/faery-cam/TP-FINAL-PAGINA-WEB-IA1#readme",
   "dependencies": {
+    "better-sqlite3": "^13.0.3",
     "express": "^5.3.0"
   },
   "devDependencies": {

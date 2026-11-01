@@ -1,0 +1,28 @@
+{
+  "name": "tp-final-pagina-web-ia1",
+  "version": "1.0.0",
+  "description": "Trabajo final para el segundo cuatrimestre de Informatica Aplicada 1 de la carrera Artes Multimediales y Electronicas dictada por la UNA",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faery-cam/TP-FINAL-PAGINA-WEB-IA1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/faery-cam/TP-FINAL-PAGINA-WEB-IA1/issues"
+  },
+  "homepage": "https://github.com/faery-cam/TP-FINAL-PAGINA-WEB-IA1#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

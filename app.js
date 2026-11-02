@@ -1,6 +1,14 @@
+/* IMPORTS */
 const express = require('express');
 const path = require('path');
+
+const PORT = 3000;
+
+/* CONFIGURACIÓN DEL SERVIDOR */
+//obj del servidor
 const app = express();
+
+app.set('port', PORT);
 
 // Configuración de motor de vistas EJS
 app.set('view engine', 'ejs');
@@ -18,7 +26,13 @@ const usersRouter = require('./routes/user');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+
+/* RESPUESTAS A PETICIONES (GET/POST) */
+
+app.get('/', (req, res) => {
+    res.sendFile('./views/user.html', { root: __dirname });
 });
+
+
+
+app.listen(app.get('port'));

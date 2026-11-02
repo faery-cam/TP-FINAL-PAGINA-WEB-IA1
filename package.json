@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon -e js,ejs,sql,json app.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,12 @@
   },
   "homepage": "https://github.com/faery-cam/TP-FINAL-PAGINA-WEB-IA1#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "better-sqlite3": "^13.0.3",
-    "express": "^5.3.0"
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "formidable": "^3.5.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

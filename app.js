@@ -1,38 +1,49 @@
-/* IMPORTS */
+/* ========== IMPORTS ========== */
 const express = require('express');
-const path = require('path');
 
+const userRouter = require('./routes/user.js');
+
+
+/* 
+const path = require('path'); // otra cosa q no se q es, hasta no entenderlo no lo descomento 
+*/
+
+
+/* ========== CONFIGURACIÓN DEL SERVIDOR ========== */
 const PORT = 3000;
+const app = express(); //objeto del servidor
 
-/* CONFIGURACIÓN DEL SERVIDOR */
-//obj del servidor
-const app = express();
+app.set('port', PORT); // puerto del servidor guardado en la llave port del obj. app
 
-app.set('port', PORT);
+/* funciones de respuesta (middleware) */
+app.use(express.urlencoded({ extended: true })); // procesa los datos de las peticiones 'post' y los deja disponible en 'req.body'
+
+/*
+no se q es aun, se q esta hecho con IA [ni lo agregué yo atte cam]
 
 // Configuración de motor de vistas EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Middlewares para parsear datos de formularios y JSON
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); 
 
-// Rutas
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/user');
+*/
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+/* ========== RUTAS ========== */
+app.use('/', userRouter);
 
 
-/* RESPUESTAS A PETICIONES (GET/POST) */
+/* ========== RESPUESTAS A PETICIONES (GET/POST) ========== */
 
 app.get('/', (req, res) => {
-    res.sendFile('./views/user.html', { root: __dirname });
+    res.sendFile('./static/index.html', { root: __dirname });
 });
 
+app.post('/', (req, res) => {
+    res.sendFile('./static/index.html', { root: __dirname });
+});
 
 
 app.listen(app.get('port'));

@@ -1,7 +1,7 @@
 // Importa el módulo better-sqlite3.
 const Database = require('better-sqlite3');
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs'); // leer archivos
+const path = require('path'); // configurar rutas
 
 // Abre/crea una base de datos en disco rígido.
 const db = new Database('users.db', { verbose: console.log });

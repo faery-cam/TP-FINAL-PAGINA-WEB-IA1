@@ -23,8 +23,8 @@ El sitio de cumplir con las siguientes especificaciones:
 - Estética
 - Logueo e inicio de sesión
 - Página sin logueo, con obra en p5
-- Collage 2D (sketch p5)
-- Collage 3D (sketch p5)
+- ~~Collage 2D (sketch p5)~~
+- Collage 3D (sketch p5) (solo si hay tiempo)
 
 
 ### PÁGINAS
@@ -36,3 +36,7 @@ El sitio de cumplir con las siguientes especificaciones:
 
 
 ***
+
+## ANOTACIONES
+
+- Collage 2D reutilizado para el global pero sin interacción, si con movimiento de las imagenes (quizas cambios de color o transparecia en el tiempo, mientras no sea muy complicado)

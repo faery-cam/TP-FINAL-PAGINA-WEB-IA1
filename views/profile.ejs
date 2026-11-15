@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil / Resultados</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
+        .container { max-width: 600px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { color: #28a745; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #e9ecef; margin-bottom: 8px; padding: 10px; border-radius: 4px; }
+        a { display: inline-block; margin-top: 20px; color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>¡Formulario Enviado con Éxito!</h2>
+        
+        <h3>Datos Personales Recibidos:</h3>
+        <p><strong>Nombre:</strong> <%= nombre %></p>
+        <p><strong>Email:</strong> <%= email %></p>
+        <p><strong>Edad:</strong> <%= edad %></p>
+
+        <h3>Archivos Subidos Correctamente:</h3>
+        <ul>
+            <% if (archivos.archivo1) { %>
+                <li><strong>Archivo 1:</strong> <%= archivos.archivo1[0].originalname %> (<%= archivos.archivo1[0].filename %>)</li>
+            <% } %>
+            <% if (archivos.archivo2) { %>
+                <li><strong>Archivo 2:</strong> <%= archivos.archivo2[0].originalname %> (<%= archivos.archivo2[0].filename %>)</li>
+            <% } %>
+            <% if (archivos.archivo3) { %>
+                <li><strong>Archivo 3:</strong> <%= archivos.archivo3[0].originalname %> (<%= archivos.archivo3[0].filename %>)</li>
+            <% } %>
+        </ul>
+
+        <a href="/">Volver al formulario</a>
+    </div>
+</body>
+</html>

@@ -1,45 +1,37 @@
 /* ========== IMPORTS ========== */
 const express = require('express');
-
+const path = require('path');
 const userRouter = require('./routes/user.js');
-
-const path = require('path'); // aun no se q es
-
 
 /* ========== CONFIGURACIÓN DEL SERVIDOR ========== */
 const PORT = 3000;
-const app = express(); //objeto del servidor
+const app = express();
 
-app.set('port', PORT); // puerto del servidor guardado en la llave port del obj. app
+app.set('port', PORT);
 
-/* funciones de respuesta (middleware) */
-app.use(express.urlencoded({ extended: true })); // procesa los datos de las peticiones 'post' y los deja disponible en 'req.body'
+/* ========== MIDDLEWARES ========== */
+// Procesar datos de formularios (POST) y dejarlos disponibles en 'req.body'
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-/* vvvvv REVISAR vvvvv */
-
-// Configuración de motor de vistas EJS
+// Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middlewares para parsear JSON
-app.use(express.json());
+// Carpeta para archivos estáticos (CSS, imágenes, uploads, etc.)
 app.use(express.static(path.join(__dirname, 'public'))); 
 
-*/
-
 /* ========== RUTAS ========== */
-app.use('/', userRouter);
-
-
-/* ========== RESPUESTAS A PETICIONES (GET/POST) ========== */
-
+// Ruta principal: renderiza la vista 'index.ejs' donde estarán el Login y el Registro
 app.get('/', (req, res) => {
-    res.sendFile('./static/index.html', { root: __dirname });
+    res.render('index'); 
 });
 
-app.post('/', (req, res) => {
-    res.sendFile('./static/index.html', { root: __dirname });
+// Rutas de usuario (controla el /user/signup y /user/login)
+app.use('/user', userRouter);
+
+
+/* ========== LEVANTAR EL SERVIDOR ========== */
+app.listen(app.get('port'), () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-
-app.listen(app.get('port'));

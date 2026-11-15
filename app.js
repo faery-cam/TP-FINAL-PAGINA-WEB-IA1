@@ -3,10 +3,7 @@ const express = require('express');
 
 const userRouter = require('./routes/user.js');
 
-
-/* 
-const path = require('path'); // otra cosa q no se q es, hasta no entenderlo no lo descomento 
-*/
+const path = require('path'); // aun no se q es
 
 
 /* ========== CONFIGURACIÓN DEL SERVIDOR ========== */
@@ -18,14 +15,13 @@ app.set('port', PORT); // puerto del servidor guardado en la llave port del obj.
 /* funciones de respuesta (middleware) */
 app.use(express.urlencoded({ extended: true })); // procesa los datos de las peticiones 'post' y los deja disponible en 'req.body'
 
-/*
-no se q es aun, se q esta hecho con IA [ni lo agregué yo atte cam]
+/* vvvvv REVISAR vvvvv */
 
 // Configuración de motor de vistas EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middlewares para parsear datos de formularios y JSON
+// Middlewares para parsear JSON
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); 
 

@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+<%- include('partials/head') %>
+
     <main class="container" style="max-width: 400px; margin: 50px auto;">
         <h2>Iniciar Sesión</h2>
         <form action="/user/login" method="POST">
             <div>
-                 <label for="nombre">Nombre de usuario:</label><br>
+                <label for="nombre">Nombre de usuario:</label><br>
                 <input type="text" id="nombre" name="nombre" required>
             </div>
             <br>
@@ -25,5 +19,4 @@
             ¿No tenés cuenta? <a href="/user/signup">Registrate acá</a> | <a href="/">Volver</a>
         </p>
     </main>
-</body>
-</html>
+    <%- include('partials/foot') %>

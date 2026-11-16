@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Registro</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-
-<body>
+<%- include('partials/head') %>
     <main class="container" style="max-width: 500px; margin: 30px auto;">
         <h2>Crear una cuenta nueva</h2>
         <form action="/user/signup" method="POST">
@@ -31,6 +22,4 @@
             ¿Ya tenés cuenta? <a href="/user/login">Iniciá sesión acá</a> | <a href="/">Volver</a>
         </p>
     </main>
-</body>
-
-</html>
+    <%- include('partials/foot') %>

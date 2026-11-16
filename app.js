@@ -21,7 +21,10 @@ app.use(express.urlencoded({ extended: true })); // procesa los datos de las pet
 app.use(express.json()); // Middleware para parsear JSON
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'clave', resave: false, saveUninitialized: false }))
-
+app.use((req, res, next) => {
+    res.locals.usuario = req.session.usuario;
+    next();
+}); //guardar usuario de la sesión
 
 /* ========== RUTAS ========== */
 app.use('/', indexRouter);

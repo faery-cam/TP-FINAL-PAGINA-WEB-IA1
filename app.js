@@ -12,26 +12,27 @@ const app = express(); //objeto del servidor
 
 app.set('port', PORT); // puerto del servidor guardado en la llave port del obj. app
 
+app.set('views','./views'); // plantillas
+app.set('view engine', 'ejs'); //motor de vistas EJS
+
 /* funciones de respuesta (middleware) */
 app.use(express.urlencoded({ extended: true })); // procesa los datos de las peticiones 'post' y los deja disponible en 'req.body'
 
+
+
 /* vvvvv REVISAR vvvvv */
-
-// Configuración de motor de vistas EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
 // Middlewares para parsear JSON
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); 
 
-*/
+/* ^^^^^ REVISAR ^^^^^ */
+
 
 /* ========== RUTAS ========== */
 app.use('/', userRouter);
 
 
-/* ========== RESPUESTAS A PETICIONES (GET/POST) ========== */
+/* ===== RESPUESTAS A PETICIONES (GET/POST) ===== */
 
 app.get('/', (req, res) => {
     res.sendFile('./static/index.html', { root: __dirname });

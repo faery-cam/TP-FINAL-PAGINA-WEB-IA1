@@ -3,6 +3,8 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
+const IMAGENES_POR_USUARIO = 2; // para probar con pocos usuarios, subilo (ej: 30)
+
 // extensiones que tomamos como imagen
 function esImagen(nombre) {
   return /\.(jpe?g|png|webp|gif)$/i.test(nombre);
@@ -28,8 +30,7 @@ router.get('/', (req, res) => {
       const carpeta = path.join(base, usuario);
       if (!fs.statSync(carpeta).isDirectory()) continue;
 
-      // hasta 2 imágenes al azar de cada usuario
-      const imgs = mezclar(fs.readdirSync(carpeta).filter(esImagen)).slice(0, 2);
+      const imgs = mezclar(fs.readdirSync(carpeta).filter(esImagen)).slice(0, IMAGENES_POR_USUARIO);
       for (const img of imgs) urls.push('/uploads/' + usuario + '/' + img);
     }
   }
@@ -38,4 +39,3 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
-

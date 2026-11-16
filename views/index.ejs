@@ -2,18 +2,27 @@
     <main>
         <section>
             <h1>Entrecapas</h1>
-            <p>Subí tus obras y sumate a esta creación colectiva.</p> <!-- reemplazar por un slogan mejor -->
+            <p>Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás, capa sobre capa.</p>
             <% if (locals.usuario) { %>
                 <a href="/user/perfil">Ir a mi perfil</a>
-                <% } else { %>
-                    <a href="/user/signup">Sumate</a>
-                    <a href="/user/login">Ya tengo cuenta</a>
-                    <% } %>
+            <% } else { %>
+                <a href="/user/signup">Sumate</a>
+                <a href="/user/login">Ya tengo cuenta</a>
+            <% } %>
         </section>
 
         <section>
-            <div id="obra-comunitaria"></div>
-        </section>
+            <script type="application/json" id="datos-obra">
+                <%- JSON.stringify(urlsObra) %>
+            </script>
+            <script>
+                window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-obra').textContent);
+            </script>
 
+            <div id="obra-comunitaria"></div>
+
+            <script src="/p5/p5.min.js"></script>
+            <script src="/p5/colectivo.js"></script>
+        </section>
     </main>
     <%- include('partials/foot') %>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const formidable = require('formidable');
-const path = require('path');
+const bcrypt = require('bcrypt');
+const db = require('../database/db.js');
 
 router.get('/login', (req, res) => {
     res.render('login');
@@ -11,32 +11,36 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+router.get('/perfil', (req, res) => {
+    res.render('perfil');
+});
+
 router.post('/signup', (req, res) => {
-    const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(__dirname, '../public/uploads');
-    form.keepExtensions = true;
-
-    form.parse(req, (err, fields, files) => {
-        if (err) {
-            console.error("Error al procesar el formulario:", err);
-            return res.status(500).send("Error al procesar el registro.");
-        }
-
-        const nombre = Array.isArray(fields.nombre) ? fields.nombre[0] : fields.nombre;
-        const email = Array.isArray(fields.email) ? fields.email[0] : fields.email;
-        const password = Array.isArray(fields.password) ? fields.password[0] : fields.password;
-
-        if (!files.obra1 || !files.obra2 || !files.obra3) {
-            return res.send('Error: Es obligatorio subir los 3 archivos de obras distintas.');
-        }
-
-        res.redirect('/user/profile');
-    });
+    const { nombre, email, password } = req.body;
+    if (db.userExists(nombre)) {
+        return res.send('Ese nombre de usuario no está disponible.');
+    }
+    const hash = bcrypt.hashSync(password, 10);
+    db.addUser(nombre, email, hash);
+    res.redirect('/user/login');
 });
 
 router.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    res.redirect('/user/profile');
+    const { nombre, password } = req.body;
+    if (!db.userExists(nombre)) {
+        return res.send('Usuario o contraseña incorrecta.');
+    }
+    if (!bcrypt.compareSync(password, db.getHash(nombre))) {
+        return res.send('Usuario o contraseña incorrecta.');
+    }
+
+    req.session.usuario = nombre;
+    res.redirect('/user/perfil');
+});
+
+router.get('/logout', (req, res) => {
+    if (!req.session.usuario) return res.redirect('/user/login');
+    res.render('perfil', { nombre: req.session.usuario, pageTitle: 'Perfil' });
 });
 
 module.exports = router;

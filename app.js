@@ -33,9 +33,7 @@ app.use('/user', userRouter);
 
 /* ===== RESPUESTAS A PETICIONES (GET/POST) ===== */
 
-
-
-
+/* ===== */
 
 app.listen(app.get('port'));
 console.log(`Server running on port ${PORT}`);

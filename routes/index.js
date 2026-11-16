@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-const IMAGENES_POR_USUARIO = 2; // para probar con pocos usuarios, subilo (ej: 30)
+const OBJETIVO = 20; // imágenes que queremos juntar en total (aprox)
 
 // extensiones que tomamos como imagen
 function esImagen(nombre) {
@@ -26,11 +26,21 @@ router.get('/', (req, res) => {
   let urls = [];
 
   if (fs.existsSync(base)) {
-    for (const usuario of fs.readdirSync(base)) {
-      const carpeta = path.join(base, usuario);
-      if (!fs.statSync(carpeta).isDirectory()) continue;
+    // usuarios que tienen al menos una imagen
+    const usuarios = fs.readdirSync(base).filter(u => {
+      const carpeta = path.join(base, u);
+      return fs.statSync(carpeta).isDirectory()
+        && fs.readdirSync(carpeta).some(esImagen);
+    });
 
-      const imgs = mezclar(fs.readdirSync(carpeta).filter(esImagen)).slice(0, IMAGENES_POR_USUARIO);
+    // cuántas por usuario: muchas si hay pocos, menos si hay muchos (mínimo 1)
+    const porUsuario = usuarios.length > 0
+      ? Math.max(1, Math.ceil(OBJETIVO / usuarios.length))
+      : 1;
+
+    for (const usuario of usuarios) {
+      const carpeta = path.join(base, usuario);
+      const imgs = mezclar(fs.readdirSync(carpeta).filter(esImagen)).slice(0, porUsuario);
       for (const img of imgs) urls.push('/uploads/' + usuario + '/' + img);
     }
   }

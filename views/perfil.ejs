@@ -1,8 +1,22 @@
 <%- include('partials/head') %>
-    <nav>
-        <ul>
-            <li> <a href="foro.ejs">Inicio</a></li>
+    <main>
+        <h1>Perfil de <%= nombre %>
+        </h1>
 
-        </ul>
-    </nav>
+        <section>
+            <h2>Subir obras</h2>
+            <form action="/user/perfil/obras" method="POST" enctype="multipart/form-data">
+                <input type="file" name="obras" accept="image/*" multiple required>
+                <button type="submit">Publicar</button>
+            </form>
+            <p>Podés tener hasta 30 obras. Recomendamos subir 10 o más para que la obra comunitaria se vea mejor.</p>
+        </section>
+
+        <section>
+            <h2>Mis obras (<%= imagenes.length %>)</h2>
+            <% imagenes.forEach(imagen=> { %>
+                <img src="/uploads/<%= nombre %>/<%= imagen %>" alt="Obra de <%= nombre %>" width="200">
+                <% }) %>
+        </section>
+    </main>
     <%- include('partials/foot') %>

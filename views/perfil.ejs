@@ -18,5 +18,33 @@
                 <img src="/uploads/<%= nombre %>/<%= imagen %>" alt="Obra de <%= nombre %>" width="200">
                 <% }) %>
         </section>
+
+    <section>
+    <h2>Mi collage</h2>
+
+    <script type="application/json" id="datos-collage">
+        <%- JSON.stringify(imagenes.map(function(img){ return '/uploads/' + nombre + '/' + img; })) %>
+    </script>
+    <script>
+        window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-collage').textContent);
+    </script>
+
+    <div id="contenedor-collage"></div>
+
+    <div id="controles-collage">
+        <button type="button" onclick="rasparCapa(1)">Capa 1</button>
+        <button type="button" onclick="rasparCapa(2)">Capa 2</button>
+        <button type="button" onclick="undo()">Deshacer</button>
+        <button type="button" onclick="redo()">Rehacer</button>
+        <button type="button" onclick="clearScratch()">Limpiar</button>
+        <button type="button" onclick="nuevoCollage()">Nuevo collage</button>
+        <button type="button" onclick="downloadCollage()">Descargar</button>
+        <button type="button" onclick="setForma('circle')">círculo</button>
+        <button type="button" onclick="setForma('star')">estrella</button>
+    </div>
+
+    <script src="/p5/p5.min.js"></script>
+    <script src="/p5/collage.js"></script>
+    </section>
     </main>
     <%- include('partials/foot') %>

@@ -1,12 +1,3 @@
-// ENTRECAPAS — obra colectiva: no interactiva, una sola capa densa, con los
-// recortes en movimiento sobre un fondo fijo. Toma imágenes de todos los
-// usuarios (las URLs las arma la página en window.URLS_IMAGENES).
-//
-// cómo anda: el fondo denso se arma UNA vez en un buffer (bgBuffer) y queda
-// quieto. Los recortes que se mueven se "hornean" una vez cada uno como una
-// estampa recortada con transparencia (sprite), y en cada frame solo se
-// dibujan y se desplazan.
-
 let images = [];
 let bgBuffer = null;   // fondo denso, fijo
 let movers = [];       // recortes que se mueven (sprites + velocidad)

@@ -1,8 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+<link rel="stylesheet" href="/css/output.css">
+<link rel="stylesheet" href="/css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= locals.pageTitle || "Completar Title" %></title>
+    <title>
+        <%= locals.pageTitle || "Entrecapas" %>
+    </title>
 </head>
+
 <body>
+    <header class="px-4 py-3">
+        <nav class="menu-navegacion">
+     <div class="menu-links">
+            <a href="/" class="menu-links">Inicio</a>
+            <% if (locals.usuario){%>
+                <a href="/user/perfil" class="menu-link">Mi perfil</a>
+                <a href="/user/logout" class="menu-link">Salir</a>
+
+                <% } else { %>
+                    <a href="/user/login" class="menu-link">Ingresar</a>
+                    <a href="/user/signup" class="menu-link">Registrarse</a>
+                    <% } %>
+        </div>            
+        </nav>
+    </header>

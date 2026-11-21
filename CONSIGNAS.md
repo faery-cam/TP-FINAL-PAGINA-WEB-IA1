@@ -40,3 +40,10 @@ El sitio de cumplir con las siguientes especificaciones:
 ## ANOTACIONES
 
 - Collage 2D reutilizado para el global pero sin interacción, si con movimiento de las imagenes (quizas cambios de color o transparecia en el tiempo, mientras no sea muy complicado)
+
+
+# NOTAS
+
+falta estetica y poder ver otros usuarios además del propio
+
+puede probar iniciando sesión con usuario y contraseña **prueba1** para ambos campos y ahi ver probar el collage que se genera, tiene distintos botones para jugar.

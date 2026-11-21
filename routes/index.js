@@ -1,46 +1,51 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
 
-// Configuración de Multer para el almacenamiento de los 3 archivos
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../public/uploads'));
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + '-' + file.originalname);
-    }
-});
+const OBJETIVO = 20; // imágenes que queremos juntar en total (aprox)
 
-const upload = multer({ storage: storage });
+// extensiones que tomamos como imagen
+function esImagen(nombre) {
+  return /\.(jpe?g|png|webp|gif)$/i.test(nombre);
+}
 
-// Ruta para mostrar el formulario
+// mezcla un array (orden al azar)
+function mezclar(arr) {
+  const copia = arr.slice();
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+// inicio público: junta imágenes de todos los usuarios para la obra comunitaria
 router.get('/', (req, res) => {
-    res.render('index');
-});
+  const base = path.join(__dirname, '..', 'public', 'uploads');
+  let urls = [];
 
-// Ruta para procesar el formulario con campos de texto y los 3 archivos
-const cpUpload = upload.fields([
-    { name: 'archivo1', maxCount: 1 },
-    { name: 'archivo2', maxCount: 1 },
-    { name: 'archivo3', maxCount: 1 }
-]);
-
-router.post('/upload', cpUpload, (req, res) => {
-    const { nombre, email, edad } = req.body;
-    const archivos = req.files;
-
-    console.log("Datos personales:", { nombre, email, edad });
-    console.log("Archivos recibidos:", archivos);
-
-    res.render('profile', { 
-        nombre, 
-        email, 
-        edad, 
-        archivos 
+  if (fs.existsSync(base)) {
+    // usuarios que tienen al menos una imagen
+    const usuarios = fs.readdirSync(base).filter(u => {
+      const carpeta = path.join(base, u);
+      return fs.statSync(carpeta).isDirectory()
+        && fs.readdirSync(carpeta).some(esImagen);
     });
+
+    // cuántas por usuario: muchas si hay pocos, menos si hay muchos (mínimo 1)
+    const porUsuario = usuarios.length > 0
+      ? Math.max(1, Math.ceil(OBJETIVO / usuarios.length))
+      : 1;
+
+    for (const usuario of usuarios) {
+      const carpeta = path.join(base, usuario);
+      const imgs = mezclar(fs.readdirSync(carpeta).filter(esImagen)).slice(0, porUsuario);
+      for (const img of imgs) urls.push('/uploads/' + usuario + '/' + img);
+    }
+  }
+
+  res.render('index', { urlsObra: mezclar(urls) });
 });
 
 module.exports = router;

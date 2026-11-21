@@ -1,0 +1,459 @@
+
+/* ========================================
+   ENTRECAPAS - SISTEMA VISUAL
+   Windows XP + Frutiger Aero + 2000s
+======================================== */
+
+
+/* 1. VARIABLES GLOBALES */
+
+:root {
+    /* COLORES */
+    --azul-xp: #0066cc;
+    --azul-claro: #5ba8f5;
+    --azul-profundo: #174c87;
+    --celeste-aero: #3998e8;
+    --aqua: #80d8f0;
+    --verde-aero: #83c94d;
+    --blanco-cristal: #f1faff;
+    --azul-oscuro: #24466b;
+
+    /* FONDOS */
+    --fondo-general: linear-gradient(
+        135deg,
+        #d8f5ff,
+        #f1faff,
+        #b8e4f5
+    );
+
+    --gradiente-xp: linear-gradient(
+        to bottom,
+        #5ba8f5 0%,
+        #2585df 45%,
+        #0066cc 100%
+    );
+
+    --gradiente-boton: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #dff5ff 45%,
+        #a8dfff 100%
+    );
+
+    /* BORDES */
+    --borde-ventana: 1px solid rgba(255,255,255,0.9);
+    --radio-ventana: 12px;
+
+    /* SOMBRAS */
+    --sombra-ventana:
+        0 8px 25px rgba(0, 55, 120, 0.22);
+
+    --sombra-cristal:
+        inset 0 1px 2px rgba(255,255,255,0.9),
+        0 5px 15px rgba(0,80,150,0.15);
+}
+
+
+/* 2. CONFIGURACIÓN GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Tahoma, Arial, sans-serif;
+    color: var(--azul-oscuro);
+    background: var(--fondo-general);
+    background-attachment: fixed;
+}
+
+::selection {
+    background: var(--azul-xp);
+    color: white;
+}
+
+a {
+    color: var(--azul-xp);
+    text-decoration: none;
+}
+
+a:hover {
+    color: #003f91;
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* 3. VENTANAS */
+
+.ventana {
+    background: rgba(245, 252, 255, 0.88);
+    border: var(--borde-ventana);
+    border-radius: var(--radio-ventana);
+    box-shadow: var(--sombra-ventana);
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+
+.ventana-contenido {
+    padding: 22px;
+}
+
+
+/* 4. BARRA SUPERIOR DE VENTANA */
+
+.barra-ventana {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 38px;
+    padding: 6px 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    background: var(--gradiente-xp);
+    border-bottom: 1px solid #ffffff;
+    text-shadow: 0 1px 2px #174c87;
+}
+
+.barra-ventana-titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* 5. BOTONES DE VENTANA */
+
+.controles-ventana {
+    display: flex;
+    gap: 4px;
+}
+
+.control-ventana {
+    width: 23px;
+    height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 4px;
+    background: linear-gradient(#83c9ff, #1767bc);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.8);
+}
+
+
+/* 6. BOTONES PRINCIPALES */
+
+.boton-aero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #174c87;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background: var(--gradiente-boton);
+    border: 1px solid #76bce9;
+    border-radius: 6px;
+    box-shadow:
+        inset 0 1px 2px white,
+        0 2px 4px rgba(0,60,120,0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.boton-aero:hover {
+    background: linear-gradient(
+        to bottom,
+        #ffffff,
+        #c8edff,
+        #83cefa
+    );
+    box-shadow:
+        inset 0 1px 3px white,
+        0 3px 8px rgba(0,60,120,0.25);
+    transform: translateY(-1px);
+}
+
+.boton-aero:active {
+    background: linear-gradient(#a8dfff, #e8f8ff);
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 4px rgba(0,60,120,0.2);
+}
+
+
+/* 7. TARJETAS */
+
+.tarjeta-aero {
+    padding: 18px;
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(255,255,255,0.95);
+    border-radius: 12px;
+    box-shadow: var(--sombra-cristal);
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-aero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 20px rgba(0,70,140,0.2);
+}
+
+
+/* 8. FORMULARIOS */
+
+.campo-aero {
+    width: 100%;
+    padding: 10px 12px;
+    color: var(--azul-oscuro);
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid #91b9d5;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0,50,100,0.1);
+    outline: none;
+}
+
+.campo-aero:focus {
+    border-color: var(--azul-xp);
+    box-shadow:
+        inset 0 1px 3px rgba(0,50,100,0.1),
+        0 0 0 3px rgba(57,152,232,0.2);
+}
+
+.campo-aero::placeholder {
+    color: #91aabd;
+}
+
+
+/* 9. ETIQUETAS */
+
+.etiqueta-aero {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #17558c;
+    font-size: 12px;
+    font-weight: bold;
+    background: linear-gradient(#ffffff, #c9edff);
+    border: 1px solid #a4d8f5;
+    border-radius: 20px;
+}
+
+
+/* 10. SEPARADORES */
+
+.separador-aero {
+    height: 1px;
+    margin: 18px 0;
+    border: none;
+    background: linear-gradient(
+        to right,
+        transparent,
+        #8fc9e8,
+        transparent
+    );
+}
+
+
+/* 11. BARRA INFERIOR */
+
+.barra-tareas {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 42px;
+    padding: 7px 16px;
+    color: white;
+    background: linear-gradient(
+        to bottom,
+        #3d9bdf,
+        #0861b5
+    );
+    border-top: 1px solid #a8e5ff;
+    box-shadow: 0 -3px 12px rgba(0,50,100,0.15);
+}
+
+
+/* 12. EFECTOS DE IMAGEN */
+
+.imagen-aero {
+    border: 3px solid white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0,50,100,0.25);
+}
+
+.brillo-aero {
+    box-shadow:
+        0 0 12px rgba(255,255,255,0.9),
+        0 0 25px rgba(90,190,255,0.35);
+}
+
+
+/* 13. BARRA DE DESPLAZAMIENTO */
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #d9f1ff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#8bd5ff, #2585df);
+    border: 2px solid #d9f1ff;
+    border-radius: 10px;
+}
+
+
+/* 14. ADAPTACIÓN A CELULARES */
+
+@media (max-width: 768px) {
+    .ventana-contenido {
+        padding: 14px;
+    }
+
+    .barra-ventana {
+        font-size: 12px;
+    }
+
+    .boton-aero {
+        padding: 9px 14px;
+    }
+}
+
+/* ========================================
+   15. MENÚ DE NAVEGACIÓN
+======================================== */
+
+.menu-navegacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #e7f7ff 45%,
+        #c1e8fa 100%
+    );
+
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow:
+        inset 0 1px 3px white,
+        0 4px 12px rgba(0,60,120,0.18);
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--azul-xp);
+    font-weight: bold;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.menu-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.menu-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 9px 13px;
+
+    color: #24577f;
+    font-size: 13px;
+    font-weight: bold;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    transition: all 0.2s ease;
+}
+
+.menu-link:hover {
+    color: #064b91;
+    text-decoration: none;
+
+    background: linear-gradient(
+        #ffffff,
+        #c9edff
+    );
+
+    border-color: #9bcfee;
+    box-shadow:
+        inset 0 1px 2px white,
+        0 2px 5px rgba(0,70,130,0.15);
+}
+
+/* SECCIÓN ACTUAL */
+
+.menu-link.activo {
+    color: #ffffff;
+
+    background: linear-gradient(
+        to bottom,
+        #69baff,
+        #0872ce
+    );
+
+    border: 1px solid #ffffff;
+
+    box-shadow:
+        inset 0 1px 3px rgba(255,255,255,0.7),
+        0 2px 5px rgba(0,60,120,0.2);
+
+    text-shadow: 0 1px 2px #174c87;
+}
+
+/* MENÚ EN CELULARES */
+
+@media (max-width: 768px) {
+    .menu-navegacion {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .menu-links {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .menu-link {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+.barra-tareas a {
+    color: white;
+    text-decoration: underline;
+}
+
+.barra-tareas a:hover {
+    color: #d8f5ff;
+}

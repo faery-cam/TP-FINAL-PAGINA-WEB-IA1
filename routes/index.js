@@ -5,21 +5,6 @@ const path = require('path');
 
 const OBJETIVO = 20; // imágenes que queremos juntar en total (aprox)
 
-// extensiones que tomamos como imagen
-function esImagen(nombre) {
-  return /\.(jpe?g|png|webp|gif)$/i.test(nombre);
-}
-
-// mezcla un array (orden al azar)
-function mezclar(arr) {
-  const copia = arr.slice();
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copia[i], copia[j]] = [copia[j], copia[i]];
-  }
-  return copia;
-}
-
 // inicio público: junta imágenes de todos los usuarios para la obra comunitaria
 router.get('/', (req, res) => {
   const base = path.join(__dirname, '..', 'public', 'uploads');
@@ -35,7 +20,7 @@ router.get('/', (req, res) => {
 
     // cuántas por usuario: muchas si hay pocos, menos si hay muchos (mínimo 1)
     const porUsuario = usuarios.length > 0
-      ? Math.max(1, Math.ceil(OBJETIVO / usuarios.length))
+      ? Math.ceil(OBJETIVO / usuarios.length)
       : 1;
 
     for (const usuario of usuarios) {
@@ -44,8 +29,28 @@ router.get('/', (req, res) => {
       for (const img of imgs) urls.push('/uploads/' + usuario + '/' + img);
     }
   }
+  const mensaje = req.session.mensaje;
+  delete req.session.mensaje;
 
-  res.render('index', { urlsObra: mezclar(urls) });
+  res.render('index', { urlsObra: mezclar(urls), mensaje });
 });
 
 module.exports = router;
+
+
+/* ===== FUNCIONES ===== */
+
+// extensiones que tomamos como imagen
+function esImagen(nombre) {
+  return /\.(jpe?g|png|webp|gif)$/i.test(nombre);
+}
+
+// mezcla un array (algoritmo Fisher Yates)
+function mezclar(arr) {
+  const copia = arr.slice();
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}

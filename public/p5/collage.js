@@ -138,17 +138,13 @@ async function setup() {
     }
   }
 
-  canva.mouseOver(invertBool);
-  canva.mouseOut(invertBool);
+  canva.mouseOver(() => onCanva = true);
+  canva.mouseOut(() => onCanva = false);
 
   createSliders();
   await generateNewCollages();
   noLoop();
   redraw();
-}
-
-function invertBool() {
-  onCanva = !onCanva;
 }
 
 // sliders HTML, metidos en el contenedor de controles

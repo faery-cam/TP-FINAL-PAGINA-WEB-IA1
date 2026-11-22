@@ -17,6 +17,8 @@ const BRUSH_SIZE = 38; // grosor inicial
 let brushSize = BRUSH_SIZE; // se ajusta con la rueda o [ ]
 const BRUSH_MIN = 6, BRUSH_MAX = 760;
 
+let onCanva = false;
+
 // forma del pincel: 'circle' | 'square' | 'rect' | 'oval' | 'star'
 let brushShape = 'circle';
 
@@ -98,7 +100,7 @@ function defineLayerOptions() {
 }
 
 async function setup() {
-  createCanvas(CANVAS_SIZE, CANVAS_SIZE).parent('contenedor-collage');
+  let canva = createCanvas(CANVAS_SIZE, CANVAS_SIZE).parent('contenedor-collage');
   defineLayerOptions();
 
   //.catch() para que un nombre que no exista no rompa todo (queda null)
@@ -136,10 +138,17 @@ async function setup() {
     }
   }
 
+  canva.mouseOver(invertBool);
+  canva.mouseOut(invertBool);
+
   createSliders();
   await generateNewCollages();
   noLoop();
   redraw();
+}
+
+function invertBool() {
+  onCanva = !onCanva;
 }
 
 // sliders HTML, metidos en el contenedor de controles
@@ -233,8 +242,8 @@ async function keyPressed() {
 async function nuevoCollage() { if (!collageA) return; await generateNewCollages(); redraw(); }
 function rasparCapa(n) { scratchPhase = n; redraw(); }
 function setForma(f) { brushShape = f; redraw(); }
-function pincelMas()  { brushSize = constrain(brushSize + 10, BRUSH_MIN, BRUSH_MAX); redraw(); }
-function pincelMenos(){ brushSize = constrain(brushSize - 10, BRUSH_MIN, BRUSH_MAX); redraw(); }
+function pincelMas() { brushSize = constrain(brushSize + 10, BRUSH_MIN, BRUSH_MAX); redraw(); }
+function pincelMenos() { brushSize = constrain(brushSize - 10, BRUSH_MIN, BRUSH_MAX); redraw(); }
 
 // regenera una sola capa y vuelve el raspado al estado inicial (los
 // agujeros viejos no pegan con la imagen nueva)
@@ -267,9 +276,11 @@ function mouseMoved() {
 
 // rueda del mouse: cambia el tamaño del pincel
 function mouseWheel(event) {
-  brushSize = constrain(brushSize - event.delta * 0.1, BRUSH_MIN, BRUSH_MAX);
-  redraw();
-  return false; // que no scrollee la página
+  if (onCanva) {
+    brushSize = constrain(brushSize - event.delta * 0.1, BRUSH_MIN, BRUSH_MAX);
+    redraw();
+    return false; // que no scrollee la página
+  }
 }
 
 // === raspado como lista de trazos ===
@@ -357,7 +368,7 @@ function stampShape(t, shape, size, x, y, angle) {
     const hy = (shape === 'square') ? size / 2 : size * 0.25;
     t.beginShape();
     rv(t, x, y, -hx, -hy, c, s); rv(t, x, y, hx, -hy, c, s);
-    rv(t, x, y, hx, hy, c, s);   rv(t, x, y, -hx, hy, c, s);
+    rv(t, x, y, hx, hy, c, s); rv(t, x, y, -hx, hy, c, s);
     t.endShape(CLOSE);
   } else if (shape === 'oval') {
     const rx = size / 2, ry = size * 0.3, n = 16;

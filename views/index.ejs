@@ -1,96 +1,117 @@
 <%- include('partials/head') %>
-    <main>
-        <h1>Entrecapas</h1>
-        <p>Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás,
-            capa sobre capa.</p>
+    <main class="pagina-perfil-aero">
+        <section class="ventana">
+            <div class="barra-ventana">
+                <span class="barra-ventana-titulo">Entrecapas</span>
+                <div class="controles-ventana" aria-hidden="true">
+                    <span class="control-ventana">_</span>
+                    <span class="control-ventana">□</span>
+                    <span class="control-ventana">×</span>
+                </div>
+            </div>
 
-        <section>
+            <div class="ventana-contenido">
+                <h1 class="titulo-perfil" style="margin-bottom: 10px;">Entrecapas</h1>
+                <p style="text-align: center; max-width: 680px; margin: 0 auto 20px; line-height: 1.6;">
+                    Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás,
+                    capa sobre capa.
+                </p>
 
-            <% if (urlsObra.length>0) { %>
-                <script type="application/json" id="datos-obra">
-                <%- JSON.stringify(urlsObra) %>
-            </script>
-                <script>
-                    window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-obra').textContent);
-                </script>
-
-                <div id="obra-comunitaria"></div>
-
-                <script src="/p5/p5.min.js"></script>
-                <script src="/p5/colectivo.js"></script>
-                <% } else { %>
-                    <p>Todavía no hay obras. Sé la primer persona en sumar la tuya.</p>
-                    <% } %>
-        </section>
-
-        <section id="acceso">
-
-            <% if (locals.usuario) { %>
-                <a href="/user/perfil">Ir a mi perfil</a>
-                <% } else { %>
-
+                <div class="contenedor-experiencia">
                     <div>
-                        <button type="button" data-form="login">Ingresar</button>
-                        <button type="button" data-form="signup">Registrarse</button>
+                        <% if (urlsObra.length > 0) { %>
+                            <script type="application/json" id="datos-obra">
+                                <%- JSON.stringify(urlsObra) %>
+                            </script>
+                            <script>
+                                window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-obra').textContent);
+                            </script>
+
+                            <div id="obra-comunitaria" class="imagen-aero"></div>
+
+                            <script src="/p5/p5.min.js"></script>
+                            <script src="/p5/colectivo.js"></script>
+                        <% } else { %>
+                            <div class="tarjeta-aero">
+                                <p>Todavía no hay obras. Sé la primer persona en sumar la tuya.</p>
+                            </div>
+                        <% } %>
                     </div>
 
-                    <form id="login" action="/user/login" method="POST" hidden>
-                        <h2>Iniciar Sesión</h2>
-                        <% if (locals.mensaje && mensaje.form==='login' ) { %>
-                            <p>
-                                <%= mensaje.texto %>
-                            </p>
+                    <div id="acceso" class="info-experiencia">
+                        <div class="tarjeta-aero">
+                            <% if (locals.usuario) { %>
+                                <h2>¡Hola, <%= locals.usuario.nombre || locals.usuario %>!</h2>
+                                <p>Ya podés gestionar tus imágenes y explorar tu collage personal.</p>
+                                <a href="/user/perfil" class="boton-aero" style="margin-top: 12px;">Ir a mi perfil</a>
+                            <% } else { %>
+                                <h2>Acceso a la comunidad</h2>
+                                <p>Ingresá con tu usuario o creá una cuenta para subir tus obras.</p>
+
+                                <div style="display: flex; gap: 8px; margin: 14px 0;">
+                                    <button type="button" class="boton-aero" data-form="login">Ingresar</button>
+                                    <button type="button" class="boton-aero" data-form="signup">Registrarse</button>
+                                </div>
+
+                                <form id="login" action="/user/login" method="POST" hidden style="display: flex; flex-direction: column; gap: 12px;">
+                                    <hr class="separador-aero" style="margin: 6px 0;">
+                                    <h3 style="margin: 0; color: var(--azul-profundo);">Iniciar Sesión</h3>
+                                    <% if (locals.mensaje && mensaje.form === 'login') { %>
+                                        <p class="etiqueta-aero"><%= mensaje.texto %></p>
+                                    <% } %>
+                                    <div>
+                                        <label for="login-nombre" style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: bold;">Nombre de usuario:</label>
+                                        <input type="text" id="login-nombre" name="nombre" class="campo-aero" required>
+                                    </div>
+                                    <div>
+                                        <label for="login-password" style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: bold;">Contraseña:</label>
+                                        <input type="password" id="login-password" name="password" class="campo-aero" required>
+                                    </div>
+                                    <button type="submit" class="boton-aero" style="align-self: flex-start;">Ingresar</button>
+                                </form>
+
+                                <form id="signup" action="/user/signup" method="POST" hidden style="display: flex; flex-direction: column; gap: 12px;">
+                                    <hr class="separador-aero" style="margin: 6px 0;">
+                                    <h3 style="margin: 0; color: var(--azul-profundo);">Crear una cuenta</h3>
+                                    <% if (locals.mensaje && mensaje.form === 'signup') { %>
+                                        <p class="etiqueta-aero"><%= mensaje.texto %></p>
+                                    <% } %>
+                                    <div>
+                                        <label for="signup-nombre" style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: bold;">Nombre de usuario:</label>
+                                        <input type="text" id="signup-nombre" name="nombre" class="campo-aero" required>
+                                    </div>
+                                    <div>
+                                        <label for="signup-email" style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: bold;">Correo electrónico:</label>
+                                        <input type="email" id="signup-email" name="email" class="campo-aero" required>
+                                    </div>
+                                    <div>
+                                        <label for="signup-password" style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: bold;">Contraseña:</label>
+                                        <input type="password" id="signup-password" name="password" class="campo-aero" required>
+                                    </div>
+                                    <button type="submit" class="boton-aero" style="align-self: flex-start;">Registrarse</button>
+                                </form>
+
+                                <script>
+                                    const botones = document.querySelectorAll('[data-form]');
+                                    const formularios = document.querySelectorAll('#acceso form');
+
+                                    botones.forEach(boton => boton.addEventListener('click', () => mostrar(boton.dataset.form)));
+                                    mostrar(location.hash.slice(1) || 'login');
+                                    window.addEventListener('hashchange', () => mostrar(location.hash.slice(1)));
+
+                                    function mostrar(id) {
+                                        formularios.forEach(form => {
+                                            const activo = form.id === id;
+                                            form.hidden = !activo;
+                                            form.style.display = activo ? 'flex' : 'none';
+                                        });
+                                    }
+                                </script>
                             <% } %>
-                                <div>
-                                    <label for="login-nombre">Nombre de usuario:</label><br>
-                                    <input type="text" id="login-nombre" name="nombre" required>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="login-password">Contraseña:</label><br>
-                                    <input type="password" id="login-password" name="password" required>
-                                </div>
-                                <br>
-                                <button type="submit">Ingresar</button>
-                    </form>
-
-                    <form id="signup" action="/user/signup" method="POST" hidden>
-                        <h2>Crear una cuenta</h2>
-                        <% if (locals.mensaje && mensaje.form==='signup' ) { %>
-                            <p>
-                                <%= mensaje.texto %>
-                            </p>
-                            <% } %>
-                                <div>
-                                    <label for="signup-nombre">Nombre de usuario:</label><br>
-                                    <input type="text" id="signup-nombre" name="nombre" required>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="signup-email">Correo electrónico:</label><br>
-                                    <input type="email" id="signup-email" name="email" required>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="signup-password">Contraseña:</label><br>
-                                    <input type="password" id="signup-password" name="password" required>
-                                </div>
-                                <button type="submit">Registrarse</button>
-                    </form>
-
-                    <script>
-                        const botones = document.querySelectorAll('[data-form]');
-                        const formularios = document.querySelectorAll('#acceso form');
-
-                        botones.forEach(boton => boton.addEventListener('click', () => mostrar(boton.dataset.form)));
-                        mostrar(location.hash.slice(1));
-                        window.addEventListener('hashchange', () => mostrar(location.hash.slice(1)));
-
-                        function mostrar(id) {
-                            formularios.forEach(form => form.hidden = form.id !== id);
-                        }
-                    </script>
-                    <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-    <%- include('partials/foot') %>
+<%- include('partials/foot') %>

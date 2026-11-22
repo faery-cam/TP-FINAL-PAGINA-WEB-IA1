@@ -1,33 +1,39 @@
 <%- include('partials/head') %>
 
-
-    <main class="container max-w-[500px] mx-auto my-[30px] ventana">
+<main class="container max-w-xl mx-auto px-4 py-8">
+    <section class="ventana">
+        <div class="barra-ventana">
+            <span class="barra-ventana-titulo">Crear una cuenta</span>
+        </div>
 
         <div class="ventana-contenido">
+            <h1 class="text-2xl font-bold text-blue-900 mb-5">Crear una cuenta nueva</h1>
 
-            <h2 class="text-2xl font-bold mb-5">Crear una cuenta nueva</h2>
-        <form action="/user/signup" method="POST" class="flex flex-col gap-4">
-            <div>
-                <label label for="nombre" class="block mb-1 font-bold text-sm">Nombre de usuario:</label><br>
-                <input type="text" id="nombre" name="nombre" class="campo-aero" required>
-            </div>
-        
-        
-            <br>
-            <div>
-                <label label for="email" class="block mb-1 font-bold text-sm">Correo electrónico:</label><br>
-                <input type="email" id="email" name="email" class="campo-aero" required>
-            </div>
-            <br>
-            <div>
-                <label for="password" class="block mb-1 font-bold text-sm">Contraseña:</label><br>
-                <input type="password" id="password" name="password" class="campo-aero" required>
-            </div>
-            <button type="submit" class="boton-aero self-start">Registrarse</button>
-        </form>
-        <p  class="mt-5 text-sm">
-            ¿Ya tenés cuenta? <a href="/user/login">Iniciá sesión acá</a> | <a href="/">Volver</a>
-        </p>
+            <form action="/user/signup" method="POST" class="flex flex-col gap-4">
+                <div>
+                    <label for="nombre" class="block mb-1 font-bold text-sm">Nombre de usuario:</label>
+                    <input type="text" id="nombre" name="nombre" class="campo-aero" required>
+                </div>
+
+                <div>
+                    <label for="email" class="block mb-1 font-bold text-sm">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" class="campo-aero" required>
+                </div>
+
+                <div>
+                    <label for="password" class="block mb-1 font-bold text-sm">Contraseña:</label>
+                    <input type="password" id="password" name="password" class="campo-aero" required>
+                </div>
+
+                <button type="submit" class="boton-aero self-start">Registrarse</button>
+            </form>
+
+            <p class="mt-5 text-sm">
+                ¿Ya tenés cuenta? <a href="/user/login">Iniciá sesión acá</a> |
+                <a href="/">Volver</a>
+            </p>
         </div>
-    </main>
-    <%- include('partials/foot') %>
+    </section>
+</main>
+
+<%- include('partials/foot') %>

@@ -2,34 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil / Resultados</title>
-     <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/output.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div  class="container ventana max-w-xl mx-auto my-10">
-        <div class="ventana-contenido space-y-5"></div>
-        <h2 class="text-2xl font-bold text-blue-900">¡Formulario Enviado con Éxito!</h2>
-        
-        <h3 class="text-lg font-bold text-blue-800">Datos Personales Recibidos:</h3>
-        <p><strong>Nombre:</strong> <%= nombre %></p>
-        <p><strong>Email:</strong> <%= email %></p>
-        <p><strong>Edad:</strong> <%= edad %></p>
+    <main class="container max-w-xl mx-auto px-4 py-8">
+        <section class="ventana">
+            <div class="barra-ventana">
+                <span class="barra-ventana-titulo">Formulario enviado</span>
+            </div>
+            <div class="ventana-contenido space-y-4">
+                <h1 class="text-2xl font-bold text-blue-900">¡Formulario Enviado con Éxito!</h1>
 
-        <h3 class="text-lg font-bold text-blue-800">Archivos Subidos Correctamente:</h3>
-        <ul class="space-y-2 list-disc pl-6">
-            <% if (archivos.archivo1) { %>
-                <li><strong>Archivo 1:</strong> <%= archivos.archivo1[0].originalname %> (<%= archivos.archivo1[0].filename %>)</li>
-            <% } %>
-            <% if (archivos.archivo2) { %>
-                <li><strong>Archivo 2:</strong> <%= archivos.archivo2[0].originalname %> (<%= archivos.archivo2[0].filename %>)</li>
-            <% } %>
-            <% if (archivos.archivo3) { %>
-                <li><strong>Archivo 3:</strong> <%= archivos.archivo3[0].originalname %> (<%= archivos.archivo3[0].filename %>)</li>
-            <% } %>
-        </ul>
+                <h2 class="text-lg font-bold text-blue-800">Datos Personales Recibidos:</h2>
+                <p><strong>Nombre:</strong> <%= nombre %></p>
+                <p><strong>Email:</strong> <%= email %></p>
+                <p><strong>Edad:</strong> <%= edad %></p>
 
-        <a href="/"  class="boton-aero inline-block">Volver al formulario</a>
-    </div>
+                <hr class="separador-aero">
+                <h2 class="text-lg font-bold text-blue-800">Archivos Subidos Correctamente:</h2>
+                <ul class="space-y-2 list-disc pl-6">
+                    <% if (archivos.archivo1) { %>
+                        <li><strong>Archivo 1:</strong> <%= archivos.archivo1[0].originalname %> (<%= archivos.archivo1[0].filename %>)</li>
+                    <% } %>
+                    <% if (archivos.archivo2) { %>
+                        <li><strong>Archivo 2:</strong> <%= archivos.archivo2[0].originalname %> (<%= archivos.archivo2[0].filename %>)</li>
+                    <% } %>
+                    <% if (archivos.archivo3) { %>
+                        <li><strong>Archivo 3:</strong> <%= archivos.archivo3[0].originalname %> (<%= archivos.archivo3[0].filename %>)</li>
+                    <% } %>
+                </ul>
+
+                <a href="/" class="boton-aero">Volver al formulario</a>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

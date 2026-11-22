@@ -21,8 +21,8 @@ El sitio de cumplir con las siguientes especificaciones:
 - Navegación por enlaces
 - Endpoints definidos
 - Estética
-- Logueo e inicio de sesión
-- Página sin logueo, con obra en p5
+- ~~Logueo e inicio de sesión~~
+- ~~Página sin logueo, con obra en p5~~
 - ~~Collage 2D (sketch p5)~~
 - Collage 3D (sketch p5) (solo si hay tiempo)
 

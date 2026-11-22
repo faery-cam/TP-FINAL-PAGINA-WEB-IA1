@@ -15,7 +15,7 @@
         <section>
             <h2>Mis obras (<%= imagenes.length %>)</h2>
             <% imagenes.forEach(imagen=> { %>
-                <img src="/uploads/<%= nombre %>/<%= imagen %>" alt="Obra de <%= nombre %>" width="200">
+                <img src="/uploads/obras/<%= nombre %>/<%= imagen %>" alt="Obra de <%= nombre %>" width="200">
                 <% }) %>
         </section>
 
@@ -38,7 +38,7 @@
         </p>
 
         <script type="application/json" id="datos-collage">
-            <%- JSON.stringify(imagenes.map(function(img){ return '/uploads/' + nombre + '/' + img; })) %>
+            <%- JSON.stringify(imagenes.map(function(img){ return '/uploads/obras/' + nombre + '/' + img; })) %>
         </script>
         <script>
             window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-collage').textContent);

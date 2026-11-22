@@ -1,13 +1,15 @@
+/* ========== IMPORTS ========== */
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const { folderObras, folderAvatares } = require('../src/folders.js');
 
 const OBJETIVO = 20; // imágenes que queremos juntar en total (aprox)
 
 // inicio público: junta imágenes de todos los usuarios para la obra comunitaria
 router.get('/', (req, res) => {
-  const base = path.join(__dirname, '..', 'public', 'uploads');
+  const base = folderObras;
   let urls = [];
 
   if (fs.existsSync(base)) {
@@ -26,7 +28,7 @@ router.get('/', (req, res) => {
     for (const usuario of usuarios) {
       const carpeta = path.join(base, usuario);
       const imgs = mezclar(fs.readdirSync(carpeta).filter(esImagen)).slice(0, porUsuario);
-      for (const img of imgs) urls.push('/uploads/' + usuario + '/' + img);
+      for (const img of imgs) urls.push('/uploads/obras/' + usuario + '/' + img);
     }
   }
   const mensaje = req.session.mensaje;

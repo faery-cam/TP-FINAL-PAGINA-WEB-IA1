@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Perfil / Resultados</title>
+     <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>¡Formulario Enviado con Éxito!</h2>
+    <div  class="container ventana max-w-xl mx-auto my-10">
+        <div class="ventana-contenido space-y-5"></div>
+        <h2 class="text-2xl font-bold text-blue-900">¡Formulario Enviado con Éxito!</h2>
         
-        <h3>Datos Personales Recibidos:</h3>
+        <h3 class="text-lg font-bold text-blue-800">Datos Personales Recibidos:</h3>
         <p><strong>Nombre:</strong> <%= nombre %></p>
         <p><strong>Email:</strong> <%= email %></p>
         <p><strong>Edad:</strong> <%= edad %></p>
 
-        <h3>Archivos Subidos Correctamente:</h3>
-        <ul>
+        <h3 class="text-lg font-bold text-blue-800">Archivos Subidos Correctamente:</h3>
+        <ul class="space-y-2 list-disc pl-6">
             <% if (archivos.archivo1) { %>
                 <li><strong>Archivo 1:</strong> <%= archivos.archivo1[0].originalname %> (<%= archivos.archivo1[0].filename %>)</li>
             <% } %>
@@ -26,7 +29,7 @@
             <% } %>
         </ul>
 
-        <a href="/">Volver al formulario</a>
+        <a href="/"  class="boton-aero inline-block">Volver al formulario</a>
     </div>
 </body>
 </html>

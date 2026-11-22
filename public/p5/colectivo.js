@@ -603,3 +603,11 @@ function fillGrainChunk(t, done, total) {
   }
   if (end < total) fillGrainChunk(t, end, total);
 }
+function windowResized() {
+  const lienzo = document.querySelector('#obra-comunitaria canvas');
+
+  if (!lienzo) return;
+
+  lienzo.style.width = '100%';
+  lienzo.style.height = 'auto';
+}

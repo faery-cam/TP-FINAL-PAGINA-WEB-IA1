@@ -1,7 +1,8 @@
 <%- include('partials/head') %>
     <main class="container mx-auto px-4 py-8 flex flex-col gap-8">
         <section class="ventana">
-              <div class="ventana-contenido text-center">
+            <div class="ventana-contenido text-center">
+
             <h1 class="text-4xl font-bold text-[var(--azul-xp)] mb-4">Entrecapas </h1>
             <p class="max-w-2xl mx-auto mb-6 text-[var(--azul-oscuro)]">Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás, capa sobre capa.</p>
             <% if (locals.usuario) { %>
@@ -14,7 +15,7 @@
         </section>
 
         <section class="ventana">
-              <div class="ventana-contenido">
+             <div class="ventana-contenido"></div>
             <script type="application/json" id="datos-obra">
                 <%- JSON.stringify(urlsObra) %>
             </script>
@@ -22,11 +23,46 @@
                 window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-obra').textContent);
             </script>
 
-            <div id="obra-comunitaria" class="w-full overflow-hidden rounded-lg"></div>
+ <div class="contenedor-experiencia">
 
-            <script src="/p5/p5.min.js"></script>
-            <script src="/p5/colectivo.js"></script>
-        </section>
+    <div id="obra-comunitaria"></div>
+
+    <div class="info-experiencia">
+
+        <div class="tarjeta-aero">
+                                <h2>Experiencia interactiva</h2>
+                    <p>
+                        Explorá cómo tus obras se transforman y dan vida a nuevas piezas.
+                        Creá tu cuenta y sumate a este collage colectivo en constante movimiento.
+                    </p>
+        </div>
+
+        <div class="tarjeta-aero">
+                                <h2>Propuesta de recorrido</h2>
+                    <p>
+                        El único requisito para integrar tus obras es registrarte y compartir al menos
+                        tres de tus trabajos. A partir de ahí, sumergite en la plataforma para
+                        descubrir y conectar con la obra de otros creadores.
+                    </p>
+        </div>
+
+        <div class="tarjeta-aero">
+                               <h2>¿Qué pasa con tus obras?</h2>
+                    <p>
+                        Tus trabajos no quedan estáticos en una galería tradicional. En esta plataforma,
+                        cada pieza entra en diálogo con las de otros usuarios para dar lugar a
+                        composiciones inéditas y recorridos visuales únicos.
+                    </p>
+        </div>
+
     </div>
+
+</div>
+        <!-- SCRIPTS DE P5.JS -->
+        <script src="/p5/p5.min.js"></script>
+        <script src="/p5/colectivo.js"></script>
+
+    </div>
+</section>
     </main>
     <%- include('partials/foot') %>

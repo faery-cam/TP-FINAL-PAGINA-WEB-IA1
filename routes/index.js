@@ -29,8 +29,10 @@ router.get('/', (req, res) => {
       for (const img of imgs) urls.push('/uploads/' + usuario + '/' + img);
     }
   }
+  const mensaje = req.session.mensaje;
+  delete req.session.mensaje;
 
-  res.render('index', { urlsObra: mezclar(urls) });
+  res.render('index', { urlsObra: mezclar(urls), mensaje });
 });
 
 module.exports = router;

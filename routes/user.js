@@ -21,7 +21,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', (req, res) => {
     const { nombre, email, password } = req.body;
     if (!nombre || !email || !password) {
-        return mensajeError(req, res, 'signup', "Completa todos los campos.");
+        return mensajeError(req, res, 'signup', "Completá todos los campos.");
     }
     if (!validateName.test(nombre)) {
         return mensajeError(req, res, 'signup', 'El nombre debe tener de 3 a 20 caracteres; letras, números o guión bajo sin espacios.');
@@ -39,14 +39,14 @@ router.post('/signup', (req, res) => {
         }
         throw error;
     }
-    req.session.mensaje = { formulario: 'login', texto: 'Cuenta creada. Ya podéa ingresar!' }
+    req.session.mensaje = { form: 'login', texto: 'Cuenta creada. Ya podés ingresar!' }
     res.redirect('/#login');
 });
 
 router.post('/login', (req, res) => {
     const { nombre, password } = req.body;
     if (!nombre || !password || !db.userExists(nombre) || !bcrypt.compareSync(password, db.getHash(nombre))) {
-        return mensajeError(req, res, 'signup', 'Usuario o contraseña incorrecta.');
+        return mensajeError(req, res, 'login', 'Usuario o contraseña incorrecta.');
     }
     req.session.usuario = nombre;
     res.redirect('/user/perfil');
@@ -94,7 +94,7 @@ function carpetaDe(nombre) {
 }
 
 function requireLogin(req, res, next) {
-    if (!req.session.usuario) return res.redirect('/user/login');
+    if (!req.session.usuario) return res.redirect('/#login');
     next();
 }
 

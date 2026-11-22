@@ -1,5 +1,9 @@
 <%- include('partials/head') %>
     <main>
+        <h1>Entrecapas</h1>
+        <p>Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás,
+            capa sobre capa.</p>
+
         <section>
 
             <% if (urlsObra.length>0) { %>
@@ -15,14 +19,12 @@
                 <script src="/p5/p5.min.js"></script>
                 <script src="/p5/colectivo.js"></script>
                 <% } else { %>
-                    <p>Todavía no hay obras. Se la primer persona en sumar la tuya.</p>
+                    <p>Todavía no hay obras. Sé la primer persona en sumar la tuya.</p>
                     <% } %>
         </section>
 
         <section id="acceso">
-            <h1>Entrecapas</h1>
-            <p>Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás,
-                capa sobre capa.</p>
+
             <% if (locals.usuario) { %>
                 <a href="/user/perfil">Ir a mi perfil</a>
                 <% } else { %>
@@ -34,36 +36,46 @@
 
                     <form id="login" action="/user/login" method="POST" hidden>
                         <h2>Iniciar Sesión</h2>
-                        <div>
-                            <label for="login-nombre">Nombre de usuario:</label><br>
-                            <input type="text" id="login-nombre" name="nombre" required>
-                        </div>
-                        <br>
-                        <div>
-                            <label for="login-password">Contraseña:</label><br>
-                            <input type="password" id="login-password" name="password" required>
-                        </div>
-                        <br>
-                        <button type="submit">Ingresar</button>
+                        <% if (locals.mensaje && mensaje.form==='login' ) { %>
+                            <p>
+                                <%= mensaje.texto %>
+                            </p>
+                            <% } %>
+                                <div>
+                                    <label for="login-nombre">Nombre de usuario:</label><br>
+                                    <input type="text" id="login-nombre" name="nombre" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="login-password">Contraseña:</label><br>
+                                    <input type="password" id="login-password" name="password" required>
+                                </div>
+                                <br>
+                                <button type="submit">Ingresar</button>
                     </form>
 
                     <form id="signup" action="/user/signup" method="POST" hidden>
                         <h2>Crear una cuenta</h2>
-                        <div>
-                            <label for="signup-nombre">Nombre de usuario:</label><br>
-                            <input type="text" id="signup-nombre" name="nombre" required>
-                        </div>
-                        <br>
-                        <div>
-                            <label for="signup-email">Correo electrónico:</label><br>
-                            <input type="email" id="signup-email" name="email" required>
-                        </div>
-                        <br>
-                        <div>
-                            <label for="signup-password">Contraseña:</label><br>
-                            <input type="password" id="signup-password" name="password" required>
-                        </div>
-                        <button type="submit">Registrarse</button>
+                        <% if (locals.mensaje && mensaje.form==='signup' ) { %>
+                            <p>
+                                <%= mensaje.texto %>
+                            </p>
+                            <% } %>
+                                <div>
+                                    <label for="signup-nombre">Nombre de usuario:</label><br>
+                                    <input type="text" id="signup-nombre" name="nombre" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="signup-email">Correo electrónico:</label><br>
+                                    <input type="email" id="signup-email" name="email" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="signup-password">Contraseña:</label><br>
+                                    <input type="password" id="signup-password" name="password" required>
+                                </div>
+                                <button type="submit">Registrarse</button>
                     </form>
 
                     <script>

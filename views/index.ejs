@@ -1,6 +1,6 @@
 <%- include('partials/head') %>
-    <main>
-        <h1>Entrecapas</h1>
+    <main class="pagina-perfil-aero">
+        <h1 class="barra-ventana-titulo">Entrecapas</h1>
         <p>Sumá tus imágenes a una obra colectiva que nunca queda quieta: cada aporte se mezcla con el de los demás,
             capa sobre capa.</p>
 
@@ -30,52 +30,57 @@
                 <% } else { %>
 
                     <div>
-                        <button type="button" data-form="login">Ingresar</button>
-                        <button type="button" data-form="signup">Registrarse</button>
+                        <button type="button" data-form="login" class="boton-aero">Ingresar</button>
+                        <button type="button" data-form="signup" class="boton-aero">Registrarse</button>
                     </div>
 
-                    <form id="login" action="/user/login" method="POST" hidden>
-                        <h2>Iniciar Sesión</h2>
+                    <form id="login" action="/user/login" method="POST" hidden
+                        style="display: flex; flex-direction: column; gap: 12px;">
+                        <h2 style="margin: 0; color: var(--azul-profundo);">Iniciar Sesión</h2>
                         <% if (locals.mensaje && mensaje.form==='login' ) { %>
-                            <p>
+                            <p class="etiqueta-aero">
                                 <%= mensaje.texto %>
                             </p>
                             <% } %>
                                 <div>
                                     <label for="login-nombre">Nombre de usuario:</label><br>
-                                    <input type="text" id="login-nombre" name="nombre" required>
+                                    <input type="text" id="login-nombre" name="nombre" required class="campo-aero">
                                 </div>
                                 <br>
                                 <div>
                                     <label for="login-password">Contraseña:</label><br>
-                                    <input type="password" id="login-password" name="password" required>
+                                    <input type="password" id="login-password" name="password" required
+                                        class="campo-aero">
                                 </div>
                                 <br>
                                 <button type="submit">Ingresar</button>
                     </form>
 
                     <form id="signup" action="/user/signup" method="POST" hidden>
-                        <h2>Crear una cuenta</h2>
+                        <h2 class="barra-ventana-titulo">Crear una cuenta</h2>
                         <% if (locals.mensaje && mensaje.form==='signup' ) { %>
                             <p>
                                 <%= mensaje.texto %>
                             </p>
                             <% } %>
                                 <div>
-                                    <label for="signup-nombre">Nombre de usuario:</label><br>
+                                    <label for="signup-nombre" class="block mb-1 font-bold text-sm">Nombre de
+                                        usuario:</label><br>
                                     <input type="text" id="signup-nombre" name="nombre" required>
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="signup-email">Correo electrónico:</label><br>
+                                    <label for="signup-email" class="block mb-1 font-bold text-sm">Correo
+                                        electrónico:</label><br>
                                     <input type="email" id="signup-email" name="email" required>
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="signup-password">Contraseña:</label><br>
+                                    <label for="signup-password"
+                                        class="block mb-1 font-bold text-sm">Contraseña:</label><br>
                                     <input type="password" id="signup-password" name="password" required>
                                 </div>
-                                <button type="submit">Registrarse</button>
+                                <button type="submit" class="boton-aero self-start">Registrarse</button>
                     </form>
 
                     <script>

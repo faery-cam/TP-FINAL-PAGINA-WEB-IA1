@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon -e js,ejs,sql,json app.js"
+    "dev": "nodemon -e js,ejs,sql,json app.js",
+    "tailwind": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "tailwind:build": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --minify"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,8 @@
     "formidable": "^3.5.4"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@tailwindcss/cli": "^4.3.5",
+    "nodemon": "^3.1.14",
+    "tailwindcss": "^4.3.5"
   }
 }

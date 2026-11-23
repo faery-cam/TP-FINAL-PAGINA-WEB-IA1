@@ -1,5 +1,5 @@
 <%- include('partials/head') %>
-    <main>
+    <main class="pagina-perfil-aero">
         <%- include('partials/perfil/header') %>
 
             <% if (locals.aviso) { %>
@@ -7,7 +7,7 @@
                     <%= aviso %>
                 </p>
                 <% } %>
-                    <% if (view ==='config' ) { %>
+                    <% if (view==='config' ) { %>
                         <%- include('partials/perfil/config') %>
                             <% } else { %>
                                 <% if (logueado) { %>

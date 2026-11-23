@@ -7,20 +7,23 @@
     <title>
         <%= locals.pageTitle || "Entrecapas" %>
     </title>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="/">Inicio</a>
-            <a href="/feed">Feed</a>
-            <% if (locals.usuario){%>
-                <a href="/user/perfil">Mi perfil</a>
-                <a href="/user/logout">Salir</a>
+    <header style="max-width: 1020px; margin: 16px auto 0; padding: 0 16px;">
+        <nav class="menu-navegacion">
+            <div class="menu-links">
+                <a href="/" class="menu-link">Inicio</a>
+                <a href="/feed" class="menu-link">Feed</a>
+                <% if (locals.usuario){%>
+                    <a href="/user/perfil" class="menu-link">Mi perfil</a>
+                    <a href="/user/logout" class="menu-link">Salir</a>
 
-                <% } else { %>
-                    <a href="/#login">Ingresar</a>
-                    <a href="/#signup">Registrarse</a>
-                    <% } %>
+                    <% } else { %>
+                        <a href="/#login" class="menu-link">Ingresar</a>
+                        <a href="/#signup" class="menu-link">Registrarse</a>
+                        <% } %>
+            </div>
         </nav>
     </header>

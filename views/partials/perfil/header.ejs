@@ -4,7 +4,7 @@
         <% } else { %>
             <div aria-hidden="true"></div>
             <% } %>
-                <h1>
+                <h1 class="titulo-perfil">
                     <%= profile.visible_name %>
                 </h1>
                 <p>@<%= nombre %>
@@ -15,7 +15,7 @@
                     </p>
                     <% } %>
                         <% if (logueado) { %>
-                            <% if (view ==='config' ) { %>
+                            <% if (view==='config' ) { %>
                                 <a href="/user/perfil">Volver al perfil</a>
                                 <% } else { %>
                                     <a href="/user/perfil?view=config">Editar perfil</a>

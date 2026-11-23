@@ -1,0 +1,21 @@
+<section>
+    <h2>Configuración</h2>
+    <form action="/user/perfil/datos" method="POST">
+        <div>
+            <label for="visible_name">Nombre:</label><br>
+            <input type="text" id="visible_name" name="visible_name" value="<%= profile.visible_name %>" maxlength="40"
+                required>
+        </div>
+        <div>
+            <label for="bio">Bio</label><br>
+            <textarea id="name" name="bio" maxlength="300" rows="4"><%= profile.bio %></textarea>
+        </div>
+        <button type="submit">Guardar</button>
+    </form>
+    
+    <form action="/user/perfil/avatar" method="POST" enctype="multipart/form-data">
+        <label for="picture">Foto de perfil:</label><br>
+        <input type="file" id="picture" name="picture" accept="image/*" required>
+        <button type="submit">Guardar foto</button>
+    </form>
+</section>

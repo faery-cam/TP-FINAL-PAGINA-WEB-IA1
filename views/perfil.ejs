@@ -1,78 +1,22 @@
 <%- include('partials/head') %>
     <main>
-        <h1>Perfil de <%= nombre %>
-        </h1>
+        <%- include('partials/perfil/header') %>
 
-        <section>
-            <h2>Subir obras</h2>
-            <form action="/user/perfil/obras" method="POST" enctype="multipart/form-data">
-                <input type="file" name="obras" accept="image/*" multiple required>
-                <button type="submit">Publicar</button>
-            </form>
-            <p>Podés tener hasta 30 obras. Recomendamos subir 10 o más para que la obra comunitaria se vea mejor.</p>
-        </section>
+            <% if (locals.aviso) { %>
+                <p>
+                    <%= aviso %>
+                </p>
+                <% } %>
+                    <% if (view ==='config' ) { %>
+                        <%- include('partials/perfil/config') %>
+                            <% } else { %>
+                                <% if (logueado) { %>
+                                    <%- include('partials/perfil/subirObras') %>
+                                        <% } %>
 
-        <section>
-            <h2>Mis obras (<%= imagenes.length %>)</h2>
-            <% imagenes.forEach(imagen=> { %>
-                <img src="/uploads/obras/<%= nombre %>/<%= imagen %>" alt="Obra de <%= nombre %>" width="200">
-                <% }) %>
-        </section>
+                                            <%- include('partials/perfil/galeria') %>
+                                                <%- include('partials/perfil/collage') %>
 
-        <section>
-        <h2>Mi collage — Entrecapas</h2>
-
-        <p>
-            <strong>Entrecapas</strong> es un collage generativo hecho con las imágenes que suben
-            los artistas de la comunidad. El programa toma tus imágenes, les recorta fragmentos,
-            texturas y figuras, los deforma y los apila en varias capas superpuestas, armando una
-            composición densa e inesperada. La gracia está —como dice el nombre— en lo que aparece
-            <strong>entre las capas</strong>: no ves una imagen terminada, la vas descubriendo vos.
-        </p>
-        <p>
-            <strong>Cómo se usa:</strong> arrastrá el mouse sobre el collage (manteniendo apretado el
-            botón) para "raspar" la capa de arriba, como un papel para rascar, y dejar ver lo que hay
-            debajo. Con los botones elegís qué <strong>capa</strong> raspás, la <strong>forma</strong> y
-            el <strong>tamaño</strong> del pincel; podés deshacer, limpiar, generar una composición
-            nueva o descargar tu versión.
-        </p>
-
-        <script type="application/json" id="datos-collage">
-            <%- JSON.stringify(imagenes.map(function(img){ return '/uploads/obras/' + nombre + '/' + img; })) %>
-        </script>
-        <script>
-            window.URLS_IMAGENES = JSON.parse(document.getElementById('datos-collage').textContent);
-        </script>
-
-        <div id="contenedor-collage"></div>
-
-        <div id="controles-collage">
-            <button type="button" onclick="rasparCapa(1)">Capa 1</button>
-            <button type="button" onclick="rasparCapa(2)">Capa 2</button>
-
-            <button type="button" onclick="undo()">Deshacer</button>
-            <button type="button" onclick="redo()">Rehacer</button>
-            <button type="button" onclick="clearScratch()">Limpiar</button>
-
-            <button type="button" onclick="nuevoCollage()">Nuevo collage</button>
-            <button type="button" onclick="downloadCollage()">Descargar</button>
-
-            <button type="button" onclick="setForma('circle')">círculo</button>
-            <button type="button" onclick="setForma('square')">cuadrado</button>
-            <button type="button" onclick="setForma('rect')">rectángulo</button>
-            <button type="button" onclick="setForma('oval')">óvalo</button>
-            <button type="button" onclick="setForma('star')">estrella</button>
-
-            <button type="button" onclick="pincelMenos()">Pincel −</button>
-            <button type="button" onclick="pincelMas()">Pincel +</button>
-
-            <button type="button" onclick="regenLayer('A')">Regenerar capa 1</button>
-            <button type="button" onclick="regenLayer('B')">Regenerar capa 2</button>
-            <button type="button" onclick="regenLayer('C')">Regenerar capa 3</button>
-        </div>
-
-        <script src="/p5/p5.min.js"></script>
-        <script src="/p5/collage.js"></script>
-        </section>
+                                                    <% } %>
     </main>
     <%- include('partials/foot') %>

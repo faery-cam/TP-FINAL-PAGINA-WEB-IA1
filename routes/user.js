@@ -7,6 +7,7 @@ const path = require('path');
 const { formidable } = require('formidable');
 const db = require('../database/db.js');
 const { folderObras, folderAvatares } = require('../src/folders.js');
+const { groupCollapsed } = require('console');
 
 const maxObras = 30;
 const maxVisibleName = 40;
@@ -58,8 +59,10 @@ router.post('/login', (req, res) => {
     if (!nombre || !password || !db.userExists(nombre) || !bcrypt.compareSync(password, db.getHash(nombre))) {
         return mensajeError(req, res, 'login', 'Usuario o contraseña incorrecta.');
     }
+    const destino = req.session.volver || '/user/perfil';
+    delete req.session.volver;
     req.session.usuario = nombre;
-    res.redirect('/user/perfil');
+    res.redirect(destino);
 });
 
 router.get('/logout', (req, res) => {
@@ -67,13 +70,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/perfil', requireLogin, (req, res) => {
-    const nombre = req.session.usuario;
-    const carpeta = carpetaDe(nombre);
-    const imagenes = fs.existsSync(carpeta) ? fs.readdirSync(carpeta) : [];
-    const profile = db.getProfile(nombre);
-    const aviso = req.session.aviso;
-    delete req.session.aviso;
-    res.render('perfil', { nombre, imagenes, profile, aviso });
+    mostrarPerfil(req, res, req.session.usuario);
 });
 
 
@@ -82,13 +79,13 @@ router.post('/perfil/datos', requireLogin, (req, res) => {
     const bio = (req.body.bio || '').trim();
 
     if (visibleName.length < 1 || visibleName.lenght > maxVisibleName) {
-        return avisoPerfil(req, res, `Tu nombre debe tener entre 1 y ${maxVisibleName} caracteres.`);
+        return avisoPerfil(req, res, `Tu nombre debe tener entre 1 y ${maxVisibleName} caracteres.`, '?view=config');
     }
     if (bio.lenght > maxBio) {
-        return avisoPerfil(req, res, `Tu biografía no puede superar los ${maxBio} caracteres.`);
+        return avisoPerfil(req, res, `Tu biografía no puede superar los ${maxBio} caracteres.`, '?view=config');
     }
     db.saveProfile(req.session.usuario, visibleName, bio);
-    avisoPerfil(req, res, 'Perfil actualizado con éxito!');
+    avisoPerfil(req, res, 'Perfil actualizado con éxito!', '?view=config');
 });
 
 router.post('/perfil/avatar', requireLogin, (req, res) => {
@@ -101,14 +98,14 @@ router.post('/perfil/avatar', requireLogin, (req, res) => {
         filter: ({ mimetype }) => mimetype && mimetype.startsWith('image/')
     });
     formulario.parse(req, (error, fields, files) => {
-        if (error) return avisoPerfil(req, res, 'No se pudo subir la foto.');
+        if (error) return avisoPerfil(req, res, 'No se pudo subir la foto.', '?view=config');
         const archivo = files.picture && files.picture[0];
-        if (!archivo) return avisoPerfil(req, res, 'El archivo debe ser una imagen');
+        if (!archivo) return avisoPerfil(req, res, 'El archivo debe ser una imagen', '?view=config');
 
         const anterior = db.getProfile(req.session.usuario).picture;
         db.savePicture(req.session.usuario, archivo.newFilename);
         if (anterior) fs.rmSync(path.join(folderAvatares, anterior), { force: true });
-        avisoPerfil(req, res, 'Foto actualizada con éxito!');
+        avisoPerfil(req, res, 'Foto actualizada con éxito!', '?view=config');
     });
 });
 
@@ -143,19 +140,31 @@ router.post('/perfil/obras/borrar', requireLogin, (req, res) => {
     res.redirect('/user/perfil');
 });
 
+router.get('/:nombre', requireLogin, (req, res) => {
+    const nombre = req.params.nombre;
+    if (!validateName.test(nombre) || !db.userExists(nombre)) {
+        return res.status(404).render('404');
+    }
+    mostrarPerfil(req, res, nombre);
+});
+
 /* ========== */
 
 module.exports = router;
 
 /* ===== FUNCIONES ===== */
 
-function carpetaDe(nombre) {
-    return path.join(folderObras, nombre);
+function requireLogin(req, res, next) {
+    if (!req.session.usuario) {
+        req.session.mensaje = { form: 'login', texto: 'Inicia sesión o creá una cuenta para continuar.' };
+        req.session.volver = req.originalUrl;
+        return res.redirect('/#login');
+    }
+    next();
 }
 
-function requireLogin(req, res, next) {
-    if (!req.session.usuario) return res.redirect('/#login');
-    next();
+function carpetaDe(nombre) {
+    return path.join(folderObras, nombre);
 }
 
 function mensajeError(req, res, form, texto) {
@@ -163,7 +172,18 @@ function mensajeError(req, res, form, texto) {
     res.redirect('/#' + form);
 }
 
-function avisoPerfil(req, res, txt) {
+function avisoPerfil(req, res, txt, consulta = '') {
     req.session.aviso = txt;
-    res.redirect('/user/perfil');
+    res.redirect('/user/perfil' + consulta);
+}
+
+function mostrarPerfil(req, res, nombre) {
+    const logueado = req.session.usuario === nombre;
+    const view = logueado && req.query.view === 'config' ? 'config' : 'obras';
+    const folder = carpetaDe(nombre);
+    const images = fs.existsSync(folder) ? fs.readdirSync(folder) : [];
+    const profile = db.getProfile(nombre);
+    const aviso = req.session.aviso;
+    delete req.session.aviso;
+    res.render('perfil', { nombre, logueado, view, images, profile, aviso });
 }

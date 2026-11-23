@@ -1,0 +1,17 @@
+<section>
+    <h2>Obras (<%= images.length %>) </h2>
+    <% if (images.length===0) { %>
+        <p>Todavía no hay obras.</p>
+        <% } %>
+            <% images.forEach(img=> { %>
+                <figure>
+                    <img src="/uploads/obras/<%= nombre %>/<%= img %>" alt="Obra de <%= nombre %>" width="200">
+                    <% if (logueado) { %>
+                        <form action="/user/perfil/obras/borrar" method="POST">
+                            <input type="hidden" name="archivo" value="<%= img %>">
+                            <button type="submit">Borrar obra</button>
+                        </form>
+                        <% } %>
+                </figure>
+                <% }) %>
+</section>

@@ -32,7 +32,7 @@ const MIN_POINT_DIST = 3;
 // textura de grano, se genera una vez y se reusa en los 3 collages
 let grainTex = null;
 
-const MIN_IMAGES = 10;
+const MIN_IMAGES = 1;
 const MAX_IMAGES = 30;
 // las URLs las arma la página (perfil.ejs) en window.URLS_IMAGENES
 const IMAGE_FILENAMES = window.URLS_IMAGENES || [];

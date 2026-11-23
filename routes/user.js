@@ -7,7 +7,6 @@ const path = require('path');
 const { formidable } = require('formidable');
 const db = require('../database/db.js');
 const { folderObras, folderAvatares } = require('../src/folders.js');
-const { groupCollapsed } = require('console');
 
 const maxObras = 30;
 const maxVisibleName = 40;

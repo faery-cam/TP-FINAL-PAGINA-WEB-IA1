@@ -3,9 +3,12 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const db = require('../database/db.js');
 const { folderObras, folderAvatares } = require('../src/folders.js');
 
 const OBJETIVO = 20; // imágenes que queremos juntar en total (aprox)
+const LIMITE_FEED = 60;
+/* ========== */
 
 // inicio público: junta imágenes de todos los usuarios para la obra comunitaria
 router.get('/', (req, res) => {
@@ -37,8 +40,27 @@ router.get('/', (req, res) => {
   res.render('index', { urlsObra: mezclar(urls), mensaje });
 });
 
-module.exports = router;
+router.get('/feed', (req, res) => {
+  let obras = [];
 
+  if (fs.existsSync(folderObras)) {
+    const usuarios = fs.readdirSync(folderObras).filter(u => {
+      return fs.statSync(path.join(folderObras, u)).isDirectory() && db.userExists(u);
+    });
+
+    for (const user of usuarios) {
+      const nombreVisible = db.getProfile(user).visible_name;
+      const imgs = fs.readdirSync(path.join(folderObras, user)).filter(esImagen);
+      for (const img of imgs) {
+        obras.push({ url: '/uploads/obras' + user + '/' + img, user, nombreVisible });
+      }
+    }
+  }
+  res.render('feed', { obras: mezclar(obras).slice(0, LIMITE_FEED) });
+});
+
+/* ========== */
+module.exports = router;
 
 /* ===== FUNCIONES ===== */
 

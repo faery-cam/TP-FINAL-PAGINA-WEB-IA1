@@ -29,10 +29,10 @@ El sitio de cumplir con las siguientes especificaciones:
 
 ### PÁGINAS
 
-- Perfil de usuario con obra p5 interactiva, galería y configuracion para editar sus datos e imagenes subidas.
-- Espacio para obra comunitaria
+- ~~Perfil de usuario con obra p5 interactiva, galería y configuracion para editar sus datos e imagenes subidas.~~
+- ~~Espacio para obra comunitaria~~
 - Feed con obras subidas de distintos usuarios
-- Perfil de usuario dinamico (no el de la persona logueada)
+- ~~Perfil de usuario dinamico (no el de la persona logueada)~~
 
 
 ***

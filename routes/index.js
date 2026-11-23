@@ -52,7 +52,7 @@ router.get('/feed', (req, res) => {
       const nombreVisible = db.getProfile(user).visible_name;
       const imgs = fs.readdirSync(path.join(folderObras, user)).filter(esImagen);
       for (const img of imgs) {
-        obras.push({ url: '/uploads/obras' + user + '/' + img, user, nombreVisible });
+        obras.push({ url: '/uploads/obras/' + user + '/' + img, user, nombreVisible });
       }
     }
   }

@@ -7,7 +7,7 @@
                 <section id="feed">
                     <% obras.forEach(obra=> { %>
                         <a href="/user/<%= obra.user %>">
-                            <img src="<%= obra.url %>" alt="Obra de <% obra.nombreVisible %>">
+                            <img src="<%= obra.url %>" alt="Obra de <% obra.nombreVisible %>" width="300">
                             <span>
                                 <%= obra.nombreVisible %> @<%= obra.user %>
                             </span>
